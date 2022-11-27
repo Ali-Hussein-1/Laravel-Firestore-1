@@ -13,4 +13,12 @@ class FirestoreController extends Controller
         $this->firestore = $firestore;
         $this->tablename = 'orders';
     }
+
+    public function store(Request $request){
+        $postData = [
+            'order' => $request->order, 
+        ];
+        $postRef = $this->app('firebase.firestore')->database()->collection('orders')->newDocument()->set($postData);
+        return response()->json(['success' => true]);
+    }
 }
